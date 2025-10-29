@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Jocuri Video - Teo'School</title>
+    <title>Video Games Quiz - Teo'School</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -14,26 +14,26 @@
                     <h2>Teo'School</h2>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="../index.html">Acasă</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">Jocuri Video</a>
+                        <a href="#" class="dropdown-toggle">Video Games</a>
                         <ul class="dropdown-menu">
-                            <li><a href="joc-video.html">Ce este un joc video?</a></li>
-                            <li><a href="limbaje-programare.html">Limbaje de Programare</a></li>
-                            <li><a href="motoare-jocuri.html">Motoare de Jocuri</a></li>
-                            <li><a href="dezvoltare-jocuri.html">Dezvoltarea Jocurilor</a></li>
-                            <li><a href="industria-gaming.html">Industria Gaming</a></li>
-                            <li><a href="glosar.html">Glosar de termeni</a></li>
+                            <li><a href="joc-video.html">What is a video game?</a></li>
+                            <li><a href="limbaje-programare.html">Programming Languages</a></li>
+                            <li><a href="motoare-jocuri.html">Game Engines</a></li>
+                            <li><a href="dezvoltare-jocuri.html">Game Development</a></li>
+                            <li><a href="industria-gaming.html">Gaming Industry</a></li>
+                            <li><a href="glosar.html">Glossary</a></li>
                         </ul>
                     </li>
-                    <li><a href="../index.html#despre-creator">Despre</a></li>
+                    <li><a href="../index.html#despre-creator">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
                 <div class="settings">
-                    <button class="settings-btn" aria-haspopup="true" aria-expanded="false" aria-controls="settings-menu" title="Setări">⚙️</button>
-                    <div id="settings-menu" class="settings-menu" role="menu" aria-label="Setări temă">
-                        <button class="settings-item" data-theme="light" role="menuitem">Mod Luminos</button>
-                        <button class="settings-item" data-theme="dark" role="menuitem">Mod Întunecat</button>
+                    <button class="settings-btn" aria-haspopup="true" aria-expanded="false" aria-controls="settings-menu" title="Settings">⚙️</button>
+                    <div id="settings-menu" class="settings-menu" role="menu" aria-label="Theme settings">
+                        <button class="settings-item" data-theme="light" role="menuitem">Light Mode</button>
+                        <button class="settings-item" data-theme="dark" role="menuitem">Dark Mode</button>
                     </div>
                 </div>
             </div>
@@ -42,8 +42,8 @@
 
     <section class="hero">
         <div class="container">
-            <h1>Testează-ți Cunostințele</h1>
-            <p>Răspunde la întrebări despre jocuri video, programare și dezvoltare pentru a-ți verifica cunoștințele!</p>
+            <h1>Test Your Knowledge</h1>
+            <p>Answer questions about video games, programming, and development to check your knowledge!</p>
         </div>
     </section>
 
@@ -51,15 +51,15 @@
         <div class="container">
             <div class="quiz-container">
                 <div id="quiz-start" class="quiz-card">
-                    <h2>Bine ai venit la Quiz!</h2>
-                    <p>Acest quiz conține întrebări despre:</p>
+                    <h2>Welcome to the Quiz!</h2>
+                    <p>This quiz includes questions about:</p>
                     <ul>
-                        <li>Istoria jocurilor video</li>
-                        <li>Limbaje de programare în dezvoltarea jocurilor</li>
-                        <li>Motoare de jocuri populare</li>
-                        <li>Procesul de dezvoltare a jocurilor</li>
+                        <li>History of video games</li>
+                        <li>Programming languages in game development</li>
+                        <li>Popular game engines</li>
+                        <li>The game development process</li>
                     </ul>
-                    <button id="start-quiz" class="btn">Să Începem Quiz-ul →</button>
+                    <button id="start-quiz" class="btn">Start the Quiz →</button>
                 </div>
 
                 <div id="quiz-questions" class="quiz-card hidden">
@@ -68,21 +68,21 @@
                         <div id="answers-container"></div>
                     </div>
                     <div class="quiz-progress">
-                        <span id="current-question">1</span> din <span id="total-questions">10</span>
+                        <span id="current-question">1</span> of <span id="total-questions">10</span>
                     </div>
                 </div>
 
                 <div id="quiz-results" class="quiz-card hidden">
-                    <h2>Rezultatele Tale</h2>
+                    <h2>Your Results</h2>
                     <div class="score-container">
-                        <p>Ai obținut <span id="score">0</span> din <span id="total">10</span> puncte!</p>
+                        <p>You scored <span id="score">0</span> out of <span id="total">10</span> points!</p>
                         <div class="score-message" id="score-message"></div>
                     </div>
                     <div class="results-details">
-                        <h3>Răspunsurile Corecte:</h3>
+                        <h3>Correct Answers:</h3>
                         <div id="answers-review"></div>
                     </div>
-                    <button id="restart-quiz" class="btn">Încearcă Din Nou</button>
+                    <button id="restart-quiz" class="btn">Try Again</button>
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Teo'School. Toate drepturile rezervate.</p>
+            <p>&copy; 2025 Teo'School. All rights reserved.</p>
         </div>
     </footer>
 
@@ -137,7 +137,7 @@
     <script>
         const quizData = [
             {
-                question: "Care a fost primul joc video comercial din istorie?",
+                question: "What was the first commercial video game in history?",
                 answers: [
                     { text: "Pong", correct: false },
                     { text: "Space Invaders", correct: false },
@@ -146,7 +146,7 @@
                 ]
             },
             {
-                question: "Care limbaj de programare este cel mai folosit în dezvoltarea jocurilor cu Unity?",
+                question: "Which programming language is most used for Unity game development?",
                 answers: [
                     { text: "C#", correct: true },
                     { text: "C++", correct: false },
@@ -155,7 +155,7 @@
                 ]
             },
             {
-                question: "Care motor de joc este cunoscut pentru grafica sa de înaltă calitate?",
+                question: "Which game engine is known for its high-end graphics?",
                 answers: [
                     { text: "Unity", correct: false },
                     { text: "Unreal Engine", correct: true },
@@ -164,7 +164,7 @@
                 ]
             },
             {
-                question: "În ce an a fost lansat primul PlayStation?",
+                question: "In what year was the first PlayStation released?",
                 answers: [
                     { text: "1992", correct: false },
                     { text: "1994", correct: true },
@@ -173,16 +173,16 @@
                 ]
             },
             {
-                question: "Care este primul pas în procesul de dezvoltare a unui joc?",
+                question: "What is the first step in the game development process?",
                 answers: [
-                    { text: "Programare", correct: false },
+                    { text: "Programming", correct: false },
                     { text: "Design", correct: false },
-                    { text: "Conceptualizare", correct: true },
-                    { text: "Testare", correct: false }
+                    { text: "Conceptualization", correct: true },
+                    { text: "Testing", correct: false }
                 ]
             },
             {
-                question: "Ce limbaj de programare este folosit în dezvoltarea jocurilor pentru PlayStation?",
+                question: "Which programming language is used in PlayStation game development?",
                 answers: [
                     { text: "C++", correct: true },
                     { text: "C#", correct: false },
@@ -191,7 +191,7 @@
                 ]
             },
             {
-                question: "Care motor de joc este open-source și gratuit?",
+                question: "Which game engine is open-source and free?",
                 answers: [
                     { text: "Unity", correct: false },
                     { text: "Unreal Engine", correct: false },
@@ -200,16 +200,16 @@
                 ]
             },
             {
-                question: "Ce rol are un Game Designer în dezvoltarea unui joc?",
+                question: "What role does a Game Designer have in development?",
                 answers: [
-                    { text: "Programează jocul", correct: false },
-                    { text: "Creează grafica", correct: false },
-                    { text: "Definește regulile și mecanica jocului", correct: true },
-                    { text: "Testează jocul", correct: false }
+                    { text: "Programs the game", correct: false },
+                    { text: "Creates graphics", correct: false },
+                    { text: "Defines the rules and mechanics", correct: true },
+                    { text: "Tests the game", correct: false }
                 ]
             },
             {
-                question: "Care a fost primul joc video care a introdus conceptul de 'save game'?",
+                question: "Which was the first video game to introduce the 'save game' concept?",
                 answers: [
                     { text: "The Legend of Zelda", correct: true },
                     { text: "Super Mario Bros", correct: false },
@@ -218,7 +218,7 @@
                 ]
             },
             {
-                question: "Ce tehnologie este folosită pentru a crea efecte vizuale în jocurile moderne?",
+                question: "Which technology is used to create visual effects in modern games?",
                 answers: [
                     { text: "Ray Tracing", correct: true },
                     { text: "Pixel Art", correct: false },
@@ -263,7 +263,7 @@
             answersContainer.innerHTML = '';
             currentQuestionSpan.textContent = currentQuestion + 1;
 
-            question.answers.forEach((answer, index) => {
+            question.answers.forEach((answer) => {
                 const button = document.createElement('button');
                 button.className = 'answer-btn';
                 button.textContent = answer.text;
@@ -301,24 +301,23 @@
             let message = '';
             const percentage = (score / quizData.length) * 100;
             if (percentage >= 90) {
-                message = 'Excelent! Ești un expert în jocuri video!';
+                message = 'Excellent! You are a video game expert!';
             } else if (percentage >= 70) {
-                message = 'Foarte bine! Ai cunoștințe solide!';
+                message = 'Very good! You have solid knowledge!';
             } else if (percentage >= 50) {
-                message = 'Bun! Mai ai de învățat, dar ești pe drumul cel bun!';
+                message = 'Good! There’s more to learn, but you’re on the right track!';
             } else {
-                message = 'Nu te descuraja! Continuă să înveți și să explorezi lumea jocurilor video!';
+                message = 'Don’t be discouraged! Keep learning and exploring the world of video games!';
             }
             scoreMessage.textContent = message;
 
-            // Afișează răspunsurile corecte
             quizData.forEach((q, index) => {
                 const correctAnswer = q.answers.find(a => a.correct);
                 const div = document.createElement('div');
                 div.className = 'answer-review';
                 div.innerHTML = `
-                    <p><strong>Întrebarea ${index + 1}:</strong> ${q.question}</p>
-                    <p><strong>Răspunsul corect:</strong> ${correctAnswer.text}</p>
+                    <p><strong>Question ${index + 1}:</strong> ${q.question}</p>
+                    <p><strong>Correct answer:</strong> ${correctAnswer.text}</p>
                 `;
                 answersReview.appendChild(div);
             });
@@ -332,7 +331,7 @@
             quizStart.style.display = 'block';
         }
     </script>
-    <button id="backToTop" class="back-to-top" aria-label="Înapoi sus" title="Înapoi sus">↑</button>
+    <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
     <script>
       (function(){
         var btn = document.getElementById('backToTop');
