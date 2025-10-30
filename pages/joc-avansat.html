@@ -172,17 +172,19 @@
             var plats = [];
             var x = 0;
             plats.push({ x: -200, y: H-40, w: 2000, h: 20 }); // ground strip
+            var prevY = H - 160;
             for (var i = 0; i < 24; i++) {
                 var pw = 180 + Math.random()*120;
-                var gap = 100 + Math.random()*140;
+                var gap = 120 + Math.random()*120;
                 x += gap;
-                // all platforms much lower
-                var lowering = i * 6; // gentle step-down
-                var py = (H - 240) + lowering + Math.sin(i*0.5)*16 + (Math.random()*16 - 8);
-                // clamp range near bottom, well above ground strip
-                if (py > H - 80) py = H - 80;     // don't get too close to ground
-                if (py < H - 300) py = H - 300;   // keep them all low
+                // enforce vertical spacing between platforms
+                var rangeY = 84; // how much up/down can next platform be from previous
+                var minY = Math.max(H - 300, prevY - rangeY);
+                var maxY = Math.min(H - 80, prevY + rangeY);
+                var py = minY + Math.random() * (maxY - minY);
+                if (i === 0) py = prevY; // start at same initial height
                 plats.push({ x: x, y: py, w: pw, h: 14 });
+                prevY = py;
             }
             return plats;
         }
@@ -226,32 +228,104 @@
         }
 
         function drawPlayer() {
-            // Fake sprite animation with stripes
-            var frameColors = ['#ffd166', '#ef476f', '#06d6a0', '#118ab2'];
-            player.frameTick = (player.frameTick + (Math.abs(player.vx) > 0.2 ? 1 : 0)) % 8;
-            if (player.frameTick === 0) player.frame = (player.frame + 1) % frameColors.length;
-
+            // Frog body
             var px = Math.floor(player.x - cameraX);
             var py = Math.floor(player.y);
+            var w = player.w, h = player.h;
 
-            // body
-            ctx.fillStyle = frameColors[player.frame];
-            ctx.fillRect(px, py, player.w, player.h);
-            // head
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(px+8, py-12, 20, 12);
-            // eye
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(px+14, py-8, 6, 4);
+            // Body oval
+            ctx.save();
+            ctx.beginPath();
+            ctx.ellipse(px + w/2, py + h/2 + 3, w/2, h/2, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#2daa3f';
+            ctx.shadowColor = '#0c6729';
+            ctx.shadowBlur = 7;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Belly
+            ctx.beginPath();
+            ctx.ellipse(px + w/2, py + h/2 + 12, w/3, h/5, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#e9ffd2';
+            ctx.fill();
+
+            // Eyes
+            for (let side of [-1, 1]) {
+                ctx.beginPath();
+                ctx.arc(px + w/2 + side*10, py + 3, 9, 0, Math.PI * 2);
+                ctx.fillStyle = '#eaf6f7';
+                ctx.fill();
+                // pupils
+                ctx.beginPath();
+                ctx.arc(px + w/2 + side*10, py + 6, 3, 0, Math.PI * 2);
+                ctx.fillStyle = '#23230b';
+                ctx.fill();
+            }
+            // Smile
+            ctx.beginPath();
+            ctx.arc(px + w/2, py + 20, 9, 0.20*Math.PI, 0.8*Math.PI);
+            ctx.lineWidth = 2.6;
+            ctx.strokeStyle = '#204d18';
+            ctx.stroke();
+
+            // Arms (simple lines)
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#246e21';
+            ctx.beginPath();
+            ctx.moveTo(px + 4, py + h*0.65);
+            ctx.lineTo(px - 6, py + h*0.8);
+            ctx.moveTo(px + w - 4, py + h*0.65);
+            ctx.lineTo(px + w + 6, py + h*0.8);
+            ctx.stroke();
+
+            // Back legs (simple lines)
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(px + 7, py + h - 5);
+            ctx.lineTo(px - 4, py + h + 11);
+            ctx.moveTo(px + w - 7, py + h - 5);
+            ctx.lineTo(px + w + 4, py + h + 11);
+            ctx.stroke();
+            ctx.restore();
         }
 
         function drawPlatforms() {
-            ctx.fillStyle = 'rgba(255,255,255,0.15)';
             for (var i = 0; i < platforms.length; i++) {
                 var p = platforms[i];
                 var px = p.x - cameraX;
                 if (px + p.w < -50 || px > W + 50) continue;
-                ctx.fillRect(Math.floor(px), Math.floor(p.y), p.w, p.h);
+                // pipe colors
+                var pipeBody = '#37ba52';
+                var pipeEdge = '#258d38';
+                var pipeHighlight = '#6fef8b';
+                var radius = p.h / 2 + 2;
+                // body
+                ctx.beginPath();
+                ctx.fillStyle = pipeBody;
+                ctx.strokeStyle = pipeEdge;
+                ctx.lineWidth = 3;
+                ctx.moveTo(px + radius, p.y);
+                ctx.lineTo(px + p.w - radius, p.y);
+                ctx.arc(px + p.w - radius, p.y + radius, radius, Math.PI * 1.5, Math.PI * 0.5, false);
+                ctx.lineTo(px + radius, p.y + p.h);
+                ctx.arc(px + radius, p.y + radius, radius, Math.PI * 0.5, Math.PI * 1.5, false);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                // highlight line
+                ctx.beginPath();
+                ctx.strokeStyle = pipeHighlight;
+                ctx.lineWidth = 2;
+                ctx.moveTo(px + radius + 2, p.y + 3);
+                ctx.lineTo(px + p.w - radius - 6, p.y + 3);
+                ctx.stroke();
+                // end caps
+                ctx.beginPath();
+                ctx.arc(px + radius, p.y + radius, radius, Math.PI * 0.5, Math.PI * 1.5, true);
+                ctx.arc(px + p.w - radius, p.y + radius, radius, Math.PI * 1.5, Math.PI * 0.5, true);
+                ctx.strokeStyle = pipeEdge;
+                ctx.lineWidth = 4;
+                ctx.stroke();
             }
         }
 
