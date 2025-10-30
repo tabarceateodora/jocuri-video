@@ -438,8 +438,14 @@
                 }
             }
         }
-        window.addEventListener('keydown', function(e){ onKey(e, true); });
-        window.addEventListener('keyup', function(e){ onKey(e, false); });
+        window.addEventListener('keydown', function(e){
+            if (["ArrowLeft","ArrowRight","ArrowUp"," ","w","a","s","d","A","W","S","D"].includes(e.key)) e.preventDefault();
+            onKey(e, true);
+        }, { passive: false });
+        window.addEventListener('keyup', function(e){
+            if (["ArrowLeft","ArrowRight","ArrowUp"," ","w","a","s","d","A","W","S","D"].includes(e.key)) e.preventDefault();
+            onKey(e, false);
+        }, { passive: false });
 
         // start
         player.y = 200;
